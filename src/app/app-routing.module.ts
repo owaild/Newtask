@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'NutritionAnalysis',
+    path: '',
     loadChildren: () =>
       import('./app-modules/nutrition-analysis/nutrition-analysis.module').then((m) => m.NutritionAnalysisModule),
   }
