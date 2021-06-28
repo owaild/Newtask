@@ -1,0 +1,132 @@
+<div class="container">
+  <p>what you are cooking, like "1 cup rice, 5 oz chickpeas"</p>
+
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label"
+      >Ingredient</label
+    >
+    <textarea
+      [(ngModel)]="ingredient"
+      class="form-control"
+      id="exampleFormControlTextarea1"
+      rows="3"
+    ></textarea>
+  </div>
+
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-11"></div>
+      <div class="col-md-1">
+        <button type="button" (click)="getAnalyse()" class="btn btn-primary">
+          Analyse
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 mt-3" *ngIf="analysis && analysis.ingredients?.length">
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Qty</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Food</th>
+            <th scope="col">Calories</th>
+            <th scope="col">Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of analysis.ingredients">
+            <th scope="row">{{ item.parsed[0]?.quantity }}</th>
+            <td>{{ item.parsed[0]?.measure }}</td>
+            <td>{{ item.parsed[0]?.food }}</td>
+            <td>
+              {{ item.parsed[0]?.nutrients?.ENERC_KCAL?.quantity.toFixed(1) }}
+              {{ item.parsed[0]?.nutrients?.ENERC_KCAL?.unit }}
+            </td>
+            <td>{{ item.parsed[0]?.weight.toFixed(1) }} g</td>
+          </tr>
+          <tr *ngIf="showTotal">
+            <th scope="row">total nutrition</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{analysis.totalWeight?.toFixed(1)}} g</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-11"></div>
+          <div class="col-md-2 ">
+            <button class="btn btn-primary" (click)="showNutrition=!showNutrition">get Nutrition Facts</button>
+          </div>
+          <div class="col-md-2 ">
+            <button class="btn btn-primary" (click)="showTotal=!showTotal">Total Nutrition</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8 mt-4" *ngIf="showNutrition">
+        <p class="h3">Nutrition Facts</p>
+
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Calories
+              <span class="badge badge-primary badge-pill">{{analysis.calories}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Cholesterol
+              <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.CHOLE?.quantity?.toFixed(1)}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Sodium
+              <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.NA?.quantity?.toFixed(1)}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Fiber
+                <!-- <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.FIBTG.quantity.toFixed(1)}}</span> -->
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Protein
+                <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.PROCNT?.quantity?.toFixed(1)}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{analysis.totalNutrients?.VITB6A?.label}}
+                <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.VITB6A?.quantity?.toFixed(1)}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{analysis.totalNutrients?.VITB12?.label}}
+                <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.VITB12?.quantity?.toFixed(1)}}</span>
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{analysis.totalNutrients?.VITC?.label}}
+                <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.VITC?.quantity?.toFixed(1)}}</span>
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{analysis.totalNutrients?.VITD?.label}}
+                <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.VITD?.quantity?.toFixed(1)}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{analysis.totalNutrients?.CA?.label}}
+                <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.CA?.quantity?.toFixed(1)}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{analysis.totalNutrients?.FE?.label}}
+                <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.FE?.quantity?.toFixed(1)}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{analysis.totalNutrients?.K?.label}}
+                <span class="badge badge-primary badge-pill">{{analysis.totalNutrients?.K?.quantity?.toFixed(1)}}</span>
+              </li>
+          </ul>
+
+    </div>
+
+
+  </div>
+</div>
